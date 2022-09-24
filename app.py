@@ -148,14 +148,14 @@ def run_wordle():
     else:
         return render_template("index.html")
 
-@app.route("/fixer", methods=["POST", "GET"])
-def run_wordle_fixer():
-    if request.method == "POST":
-        must_be_present = request.form["must_be_present"]
-        final_out1, final_out2, final_out3, final_out4, final_out5 = find_word_with_letters(df, must_be_present)
-        return render_template("fixer.html", final_out1=final_out1, final_out2=final_out2, final_out3=final_out3, final_out4=final_out4, final_out5=final_out5, must_be_present=must_be_present)
-    else:
-        return render_template("fixer.html")
+# @app.route("/fixer", methods=["POST", "GET"])
+# def run_wordle_fixer():
+#     if request.method == "POST":
+#         must_be_present = request.form["must_be_present"]
+#         final_out1, final_out2, final_out3, final_out4, final_out5 = find_word_with_letters(df, must_be_present)
+#         return render_template("fixer.html", final_out1=final_out1, final_out2=final_out2, final_out3=final_out3, final_out4=final_out4, final_out5=final_out5, must_be_present=must_be_present)
+#     else:
+#         return render_template("fixer.html")
 
 
 
