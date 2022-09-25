@@ -1,1 +1,1 @@
-web: waitress-serve --listen=localhost:8000 app:app
+web: waitress-serve --listen=localhost app:app
