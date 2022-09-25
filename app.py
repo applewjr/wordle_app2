@@ -21,8 +21,22 @@ def wordle_solver_split(import_df, must_not_be_present: str,
     present1: str, present2: str, present3: str, present4: str, present5: str,
     not_present1: str, not_present2: str, not_present3: str, not_present4: str, not_present5: str):
 
+    must_not_be_present = must_not_be_present.lower()
+    present1 = present1.lower()
+    present2 = present2.lower()
+    present3 = present3.lower()
+    present4 = present4.lower()
+    present5 = present5.lower()
+    not_present1 = not_present1.lower()
+    not_present2 = not_present2.lower()
+    not_present3 = not_present3.lower()
+    not_present4 = not_present4.lower()
+    not_present5 = not_present5.lower()
+
     final_out2 = must_not_be_present + present1 + present2 + present3 + present4 + present5 + \
         not_present1 + not_present2 + not_present3 + not_present4 + not_present5
+
+
 
     # split individual letters into lists
     must_not_be_present = list(must_not_be_present)
