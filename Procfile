@@ -1,1 +1,1 @@
-web: waitress-serve —port=$PORT app:app
+web: waitress-serve --listen=localhost:8000 app:app

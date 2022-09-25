@@ -9,8 +9,11 @@ app = Flask(__name__)
 
 # Current directory for Flask app
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+# Current directory for Flask app + file name
+# Use this file_path variable in your code to refer to your file 
 file_path = os.path.join(APP_ROOT, 'word_data_created.xlsx')
 df = pd.read_excel(file_path)
+# df = pd.read_excel('word_data_created.xlsx')
 
 # main solver function
 def wordle_solver_split(import_df, must_not_be_present: str, 
@@ -148,14 +151,33 @@ def run_wordle():
     else:
         return render_template("index.html")
 
-# @app.route("/fixer", methods=["POST", "GET"])
-# def run_wordle_fixer():
-#     if request.method == "POST":
-#         must_be_present = request.form["must_be_present"]
-#         final_out1, final_out2, final_out3, final_out4, final_out5 = find_word_with_letters(df, must_be_present)
-#         return render_template("fixer.html", final_out1=final_out1, final_out2=final_out2, final_out3=final_out3, final_out4=final_out4, final_out5=final_out5, must_be_present=must_be_present)
-#     else:
-#         return render_template("fixer.html")
+@app.route("/fixer", methods=["POST", "GET"])
+def run_wordle_fixer():
+    if request.method == "POST":
+        must_be_present = request.form["must_be_present"]
+        final_out1, final_out2, final_out3, final_out4, final_out5 = find_word_with_letters(df, must_be_present)
+        return render_template("fixer.html", final_out1=final_out1, final_out2=final_out2, final_out3=final_out3, final_out4=final_out4, final_out5=final_out5, must_be_present=must_be_present)
+    else:
+        return render_template("fixer.html")
+
+
+
+
+# @app.route('/home')
+# def home2():
+#     return "Hello! this is the main page <h1>HELLO</h1>"  
+
+# @app.route("/<name>")
+# def user(name):
+#     return f"Hello {name}!"
+
+# @app.route('/flask')
+# def hello_flask():
+#    return "123" + "123,123"
+
+# @app.route("/admin")
+# def admin():
+#     return redirect(url_for("home2"))
 
 
 
