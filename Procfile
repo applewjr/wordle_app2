@@ -1,1 +1,1 @@
-web: waitress-serve --listen=localhost app:app
+web: gunicorn app:app
