@@ -1,7 +1,5 @@
 from flask import Flask, redirect, render_template, url_for, request, redirect, jsonify
-# from datetime import datetime
 import pandas as pd
-# import random
 import os
 
 app = Flask(__name__)
@@ -9,12 +7,8 @@ app = Flask(__name__)
 
 # Current directory for Flask app
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-# Current directory for Flask app + file name
-# Use this file_path variable in your code to refer to your file 
 file_path = os.path.join(APP_ROOT, 'word_data_created.csv')
-# df = pd.read_excel(file_path)
 df = pd.read_csv(file_path)
-# df = pd.read_excel('word_data_created.xlsx')
 
 # main solver function
 def wordle_solver_split(import_df, must_not_be_present: str, 
@@ -35,8 +29,6 @@ def wordle_solver_split(import_df, must_not_be_present: str,
 
     final_out2 = must_not_be_present + present1 + present2 + present3 + present4 + present5 + \
         not_present1 + not_present2 + not_present3 + not_present4 + not_present5
-
-
 
     # split individual letters into lists
     must_not_be_present = list(must_not_be_present)
@@ -102,7 +94,9 @@ def wordle_solver_split(import_df, must_not_be_present: str,
     return final_out1, final_out2, final_out3, final_out4, final_out5, final_out_end
 
 def find_word_with_letters(import_df, must_be_present: str):
-    # df = pd.read_excel(import_path)
+
+    must_be_present = must_be_present.lower()
+
     df = import_df.copy()
 
     count_list = []
@@ -143,9 +137,6 @@ def find_word_with_letters(import_df, must_be_present: str):
 
     return final_out1, final_out2, final_out3, final_out4, final_out5
 
-def test_math (a: int, b: int):
-    c = int(a) + int(b)
-    return c
 
 @app.route("/", methods=["POST", "GET"])
 def run_wordle():
@@ -161,8 +152,11 @@ def run_wordle():
         not_present3 = request.form["not_present3"]
         not_present4 = request.form["not_present4"]
         not_present5 = request.form["not_present5"]
-        final_out1, final_out2, final_out3, final_out4, final_out5, final_out_end = wordle_solver_split(df, must_not_be_present, present1, present2, present3, present4, present5, not_present1, not_present2, not_present3, not_present4, not_present5)
-        return render_template("index.html", final_out1=final_out1, final_out2=final_out2, final_out3=final_out3, final_out4=final_out4, final_out5=final_out5, final_out_end=final_out_end, must_not_be_present_val=must_not_be_present, present1_val=present1, present2_val=present2, present3_val=present3, present4_val=present4, present5_val=present5, not_present1_val=not_present1, not_present2_val=not_present2, not_present3_val=not_present3, not_present4_val=not_present4, not_present5_val=not_present5)
+        final_out1, final_out2, final_out3, final_out4, final_out5, final_out_end = wordle_solver_split(df, must_not_be_present, \
+            present1, present2, present3, present4, present5, not_present1, not_present2, not_present3, not_present4, not_present5)
+        return render_template("index.html", final_out1=final_out1, final_out2=final_out2, final_out3=final_out3, final_out4=final_out4, final_out5=final_out5, final_out_end=final_out_end, \
+            must_not_be_present_val=must_not_be_present, present1_val=present1, present2_val=present2, present3_val=present3, present4_val=present4, present5_val=present5, \
+            not_present1_val=not_present1, not_present2_val=not_present2, not_present3_val=not_present3, not_present4_val=not_present4, not_present5_val=not_present5)
     else:
         return render_template("index.html")
 
@@ -175,32 +169,6 @@ def run_wordle_fixer():
     else:
         return render_template("fixer.html")
 
-@app.route("/test", methods=["POST", "GET"])
-def test_math():
-    if request.method == "POST":
-        a = request.form["a"]
-        b = request.form["b"]
-        c = test_math(a, b)
-        return render_template("index2.html", c=c, a=a, b=b)
-    else:
-        return render_template("index2.html")
-
-
-# @app.route('/home')
-# def home2():
-#     return "Hello! this is the main page <h1>HELLO</h1>"  
-
-# @app.route("/<name>")
-# def user(name):
-#     return f"Hello {name}!"
-
-# @app.route('/flask')
-# def hello_flask():
-#    return "123" + "123,123"
-
-# @app.route("/admin")
-# def admin():
-#     return redirect(url_for("home2"))
 
 
 
